@@ -6,6 +6,7 @@ package libmealone;
 
 import java.sql.*;
 import database.MyDB;
+import database.SessionManager;
 import javax.swing.JOptionPane;
 
 /**
@@ -123,7 +124,7 @@ public class LoginPage extends javax.swing.JFrame {
             boolean unsuccessful = true;
             Connection conn = MyDB.getConn();
             
-            String sql = "SELECT password FROM users WHERE username = ?";
+            String sql = "SELECT * FROM users WHERE username = ?";
             PreparedStatement p = conn.prepareStatement(sql);
             
             p.setString(1, username);
@@ -135,6 +136,15 @@ public class LoginPage extends javax.swing.JFrame {
                 
                 if(actualPassword.equals(password)) {
                     // proceed to dashboard
+                    int id = rs.getInt("id");
+                    String role = rs.getString("role");
+                    Date created_at = rs.getDate("created_at");
+                    
+                    SessionManager.set("id", id);
+                    SessionManager.set("role", role);
+                    SessionManager.set("username", username);
+                    SessionManager.set("created_at", created_at);
+                    
                     new UserDashboard().setVisible(true);
                     this.dispose();
                     

@@ -4,6 +4,9 @@
  */
 package libmealone;
 
+import database.SessionManager;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Zeus
@@ -15,6 +18,12 @@ public class UserDashboard extends javax.swing.JFrame {
      */
     public UserDashboard() {
         initComponents();
+        
+        Object sessionUsername = SessionManager.get("username");
+        String username = (sessionUsername != null) ? sessionUsername.toString() : "Guest";
+
+        // Update welcome message through a method
+        welcomeMessage.setText("Hello, " + username + "!");
     }
 
     /**
@@ -26,9 +35,10 @@ public class UserDashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        welcomeMessage = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        YourProfile = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -36,6 +46,11 @@ public class UserDashboard extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        welcomeMessage.setFont(new java.awt.Font("Segoe UI Symbol", 1, 96)); // NOI18N
+        welcomeMessage.setForeground(java.awt.Color.white);
+        welcomeMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(welcomeMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1200, 160));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -46,33 +61,38 @@ public class UserDashboard extends javax.swing.JFrame {
         jLabel2.setText("View books");
         jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 260, 120));
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, 260, 120));
 
-        jPanel3.setBackground(java.awt.Color.white);
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        YourProfile.setBackground(java.awt.Color.white);
+        YourProfile.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        YourProfile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                YourProfileMouseClicked(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 204, 153));
         jLabel4.setText("Your Profile");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout YourProfileLayout = new javax.swing.GroupLayout(YourProfile);
+        YourProfile.setLayout(YourProfileLayout);
+        YourProfileLayout.setHorizontalGroup(
+            YourProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(YourProfileLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addContainerGap(102, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        YourProfileLayout.setVerticalGroup(
+            YourProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(YourProfileLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addContainerGap(82, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 60, 250, -1));
+        getContentPane().add(YourProfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 410, 250, -1));
 
         jPanel2.setBackground(java.awt.Color.white);
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -98,13 +118,17 @@ public class UserDashboard extends javax.swing.JFrame {
                 .addContainerGap(82, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 50, 260, -1));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 400, 260, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/libmealone/lib.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -30, 1200, 610));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void YourProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_YourProfileMouseClicked
+        JOptionPane.showMessageDialog(this, "Username: " + SessionManager.get("username").toString() + "\nRole: " + SessionManager.get("role").toString() + "\nCreated at: " + SessionManager.get("created_at").toString());
+    }//GEN-LAST:event_YourProfileMouseClicked
 
     /**
      * @param args the command line arguments
@@ -136,18 +160,27 @@ public class UserDashboard extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UserDashboard().setVisible(true);
+                UserDashboard u = new UserDashboard();
+                u.setVisible(true);
+                
+                if(!SessionManager.contains("id")) {
+                    new LoginPage().setVisible(true);
+                    u.dispose();
+                }
             }
         });
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel YourProfile;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JLabel welcomeMessage;
     // End of variables declaration//GEN-END:variables
 }
