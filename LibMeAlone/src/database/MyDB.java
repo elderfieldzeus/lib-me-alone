@@ -19,10 +19,12 @@ public class MyDB {
         String username = "root";
         String password = "";
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            // Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             return DriverManager.getConnection(url, username, password);
         }
         catch(Exception e) {
+            System.out.print(e);
             return null;
         }
     }

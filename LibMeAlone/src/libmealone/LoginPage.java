@@ -76,7 +76,7 @@ public class LoginPage extends javax.swing.JFrame {
         jPanel2.add(loginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 310, 50));
 
         jLabel3.setText("Don't have an account?");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, -1, -1));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, -1, -1));
 
         loginToSignup.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         loginToSignup.setForeground(java.awt.Color.blue);
@@ -86,7 +86,7 @@ public class LoginPage extends javax.swing.JFrame {
                 loginToSignupMouseClicked(evt);
             }
         });
-        jPanel2.add(loginToSignup, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 320, -1, -1));
+        jPanel2.add(loginToSignup, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 320, -1, -1));
 
         jLabel5.setText("Username");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
@@ -99,7 +99,7 @@ public class LoginPage extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 204, 153));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Zeus\\Downloads\\lib.jpg")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/libmealone/lib.jpg"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, 1200, 620));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
