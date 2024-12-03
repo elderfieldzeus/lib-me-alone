@@ -145,7 +145,16 @@ public class LoginPage extends javax.swing.JFrame {
                     SessionManager.set("username", username);
                     SessionManager.set("created_at", created_at);
                     
-                    new UserDashboard().setVisible(true);
+                    if(role.equals("admin")) {
+                        new AdminDashboard().setVisible(true);
+                    }
+                    else if(role.equals("librarian")) {
+                        new LibrarianDashboard().setVisible(true);
+                    }
+                    else {
+                        new UserDashboard().setVisible(true);
+                    }
+                    
                     this.dispose();
                     
                     unsuccessful = false;
