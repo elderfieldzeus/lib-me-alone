@@ -9,6 +9,7 @@ package libmealone;
  * @author Zeus
  */
 public class Book extends javax.swing.JPanel {
+    private Integer id;
     private String title;
     private String author;
     
@@ -19,11 +20,15 @@ public class Book extends javax.swing.JPanel {
         initComponents();
     }
     
-    public Book(String title, String author) {
+    public Book(int id, String title, String author) {
         initComponents();
         
+        this.id = id;
         this.title = title;
         this.author = author;
+        
+        book_title.setText(title);
+        book_author.setText(author);
     }
 
     /**
@@ -35,29 +40,28 @@ public class Book extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        book_title = new javax.swing.JLabel();
+        book_author = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
 
-        setBackground(new java.awt.Color(255, 204, 204));
+        setBackground(new java.awt.Color(153, 102, 0));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/libmealone/book.png"))); // NOI18N
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 214, -1));
+        book_title.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        book_title.setText("(TITLE)");
+        add(book_title, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 100, 30));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        jLabel2.setText("Title:");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 235, 35, -1));
+        book_author.setText("(Book Author)");
+        add(book_author, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 80, 20));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        jLabel3.setText("Author: ");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 258, -1, -1));
+        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 10, 150));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel book_author;
+    private javax.swing.JLabel book_title;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
