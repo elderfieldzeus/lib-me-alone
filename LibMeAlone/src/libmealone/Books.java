@@ -218,10 +218,10 @@ public class Books extends javax.swing.JFrame {
             String role = SessionManager.get("role").toString();
             String sql1;
             if(role.equals("user")) {
-                sql1 = "SELECT * FROM books WHERE is_borrowed = 0 LIMIT 6 OFFSET ?";
+                sql1 = "SELECT * FROM books WHERE is_borrowed = 0 ORDER BY name LIMIT 6 OFFSET ?";
             }
             else {
-                sql1 = "SELECT * FROM books LIMIT 6 OFFSET ?";
+                sql1 = "SELECT * FROM books ORDER BY name LIMIT 6 OFFSET ?";
             }
             
             PreparedStatement p1 = conn.prepareStatement(sql1);

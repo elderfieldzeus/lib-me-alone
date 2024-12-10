@@ -4,10 +4,10 @@
  */
 package libmealone;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.*;
 import database.MyDB;
 import database.SessionManager;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -110,21 +110,38 @@ public class BorrowMe extends javax.swing.JFrame {
     private void borrow_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_borrow_buttonMouseClicked
         try {
            Connection conn = MyDB.getConn();
-                
+           Integer user_id = Integer.valueOf(SessionManager.get("id").toString());
             // Check if username already exists
-            String sql1 = "INSERT INTO borrowed_books(user_id, book_id) VALUES(?, ?)";
-            PreparedStatement p1 = conn.prepareStatement(sql1);
+            String sql = "SELECT * FROM borrowed_books WHERE user_id = ? AND book_id = ? AND is_approved = 0";
             
-            Integer user_id = Integer.valueOf(SessionManager.get("id").toString());
-            p1.setInt(1, user_id);
-            p1.setInt(2, this.id);
+            PreparedStatement p = conn.prepareStatement(sql);
             
-            p1.execute();
+            p.setInt(1, user_id);
+            p.setInt(2, id);
+            
+            ResultSet rs = p.executeQuery();
+            
+            if(rs.next()) {
+                JOptionPane.showMessageDialog(this, "You already submitted a request for this book");
+            }
+            else {
+                String sql1 = "INSERT INTO borrowed_books(user_id, book_id) VALUES(?, ?)";
+                PreparedStatement p1 = conn.prepareStatement(sql1);
+
+
+                p1.setInt(1, user_id);
+                p1.setInt(2, this.id);
+
+                p1.execute();
+                JOptionPane.showMessageDialog(this, "Successfully borred book!");
+            }
+            
             
             conn.close();
        }
         catch(Exception error) {
             System.err.println(error);
+            JOptionPane.showMessageDialog(this, "Error: Invalid borrow attempt.");
         }
         
         this.dispose();
