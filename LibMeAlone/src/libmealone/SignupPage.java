@@ -160,7 +160,7 @@ public class SignupPage extends javax.swing.JFrame {
                     new LoginPage().setVisible(true);
                     this.dispose();
                 }
-            
+                JOptionPane.showMessageDialog(this, "Successfully created an account.");
                 conn.close();
             }
             catch(Exception error) {

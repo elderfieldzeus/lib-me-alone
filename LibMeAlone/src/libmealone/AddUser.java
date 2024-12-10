@@ -154,7 +154,7 @@ public class AddUser extends javax.swing.JFrame {
                     
                     this.dispose();
                 }
-            
+                JOptionPane.showMessageDialog(this, "Successfully created user.");
                 conn.close();
             }
             catch(Exception error) {

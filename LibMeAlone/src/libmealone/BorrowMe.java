@@ -133,7 +133,7 @@ public class BorrowMe extends javax.swing.JFrame {
                 p1.setInt(2, this.id);
 
                 p1.execute();
-                JOptionPane.showMessageDialog(this, "Successfully borred book!");
+                JOptionPane.showMessageDialog(this, "Successfully borrowed book!");
             }
             
             

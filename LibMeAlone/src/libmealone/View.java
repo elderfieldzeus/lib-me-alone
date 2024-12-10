@@ -94,6 +94,11 @@ public class View extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        table_area.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table_areaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(table_area);
         if (table_area.getColumnModel().getColumnCount() > 0) {
             table_area.getColumnModel().getColumn(0).setResizable(false);
@@ -191,6 +196,19 @@ public class View extends javax.swing.JFrame {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         new AddUser(isUser).setVisible(true);
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void table_areaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_areaMouseClicked
+        int row = table_area.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel)table_area.getModel();
+        
+        Integer user_id = (Integer)model.getValueAt(row, 0);
+        String username = (String)model.getValueAt(row, 1);
+        
+        new DeleteUser(user_id,  username,() -> {
+            updateTable();
+            return null;
+        }).setVisible(true);
+    }//GEN-LAST:event_table_areaMouseClicked
 
     private void updateTable() {
         

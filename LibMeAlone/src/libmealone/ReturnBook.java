@@ -37,6 +37,7 @@ public class ReturnBook extends javax.swing.JFrame {
         this.isRequested = isRequested;
         
         String action = (isRequested) ? "Approve " : "Return ";
+        action_button.setText(isRequested ? "Approve" : "Return");
         
         this.return_label.setText("<html><p>" + action + book_name + "?<p></html>");
         
@@ -55,7 +56,7 @@ public class ReturnBook extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         return_label = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        action_button = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -71,15 +72,15 @@ public class ReturnBook extends javax.swing.JFrame {
         return_label.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel1.add(return_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(9, 10, 230, 80));
 
-        jButton1.setBackground(java.awt.Color.green);
-        jButton1.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        jButton1.setText("Return");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        action_button.setBackground(java.awt.Color.green);
+        action_button.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        action_button.setText("Return");
+        action_button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                action_buttonMouseClicked(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
+        jPanel1.add(action_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
 
         jButton2.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         jButton2.setText("Cancel");
@@ -110,7 +111,7 @@ public class ReturnBook extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2MouseClicked
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void action_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_action_buttonMouseClicked
         try {
            Connection conn = MyDB.getConn();
            PreparedStatement p1, p2;
@@ -156,7 +157,7 @@ public class ReturnBook extends javax.swing.JFrame {
        }
         
         this.dispose();
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_action_buttonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -194,7 +195,7 @@ public class ReturnBook extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton action_button;
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel return_label;
