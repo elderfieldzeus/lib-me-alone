@@ -4,6 +4,8 @@
  */
 package libmealone;
 
+import database.SessionManager;
+
 /**
  *
  * @author Zeus
@@ -12,6 +14,7 @@ public class Book extends javax.swing.JPanel {
     private Integer id;
     private String title;
     private String author;
+    private String description;
     
     /**
      * Creates new form Book
@@ -20,12 +23,13 @@ public class Book extends javax.swing.JPanel {
         initComponents();
     }
     
-    public Book(int id, String title, String author) {
+    public Book(int id, String title, String author, String description) {
         initComponents();
         
         this.id = id;
         this.title = title;
         this.author = author;
+        this.description = description;
         
         book_title.setText(title);
         book_author.setText(author);
@@ -45,6 +49,16 @@ public class Book extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(153, 102, 0));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         book_title.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
@@ -57,6 +71,14 @@ public class Book extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(255, 204, 204));
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 10, 150));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        
+    }//GEN-LAST:event_formKeyPressed
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        new BorrowMe(this.id, this.title, this.author, this.description).setVisible(true);
+    }//GEN-LAST:event_formMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

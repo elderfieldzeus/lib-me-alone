@@ -110,10 +110,6 @@ public class UserDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        Callable<Void> call = () -> {
-            this.dispose();
-            return null;
-        };
         new Books().setVisible(true);
     }//GEN-LAST:event_jButton1MouseClicked
 

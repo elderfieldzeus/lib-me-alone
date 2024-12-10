@@ -5,6 +5,7 @@
 package libmealone;
 
 import database.MyDB;
+import database.SessionManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,9 +24,13 @@ public class Books extends javax.swing.JFrame {
     public Books() {
         initComponents();
         
+        String role = SessionManager.get("role").toString();
         this.offset = 0;
         this.books = getBooks();
         
+        if(!role.equals("admin")) {
+            add_book.setVisible(false);
+        }
         
         updateBooks();
         
@@ -41,6 +46,8 @@ public class Books extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        add_book = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         book_area = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         offset_label = new javax.swing.JLabel();
@@ -48,12 +55,30 @@ public class Books extends javax.swing.JFrame {
         plus_offset = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        add_book.setBackground(java.awt.Color.green);
+        add_book.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        add_book.setText("Add Book");
+        add_book.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                add_bookMouseClicked(evt);
+            }
+        });
+        getContentPane().add(add_book, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, -1, -1));
+
+        jButton1.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        jButton1.setText("Close");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, -1, -1));
 
         book_area.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(book_area, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 520, 300));
@@ -105,15 +130,6 @@ public class Books extends javax.swing.JFrame {
         jLabel2.setText("Library");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 30));
 
-        jButton1.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        jButton1.setText("Close");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
-            }
-        });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, -1, -1));
-
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/libmealone/empty-shelf.jpg"))); // NOI18N
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 360));
 
@@ -153,6 +169,10 @@ public class Books extends javax.swing.JFrame {
             updateBooks();
         }
     }//GEN-LAST:event_minus_offsetMouseClicked
+
+    private void add_bookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add_bookMouseClicked
+        new AddBook().setVisible(true);
+    }//GEN-LAST:event_add_bookMouseClicked
 
     /**
      * @param args the command line arguments
@@ -195,8 +215,15 @@ public class Books extends javax.swing.JFrame {
        try {
            Connection conn = MyDB.getConn();
                 
-            // Check if username already exists
-            String sql1 = "SELECT * FROM books LIMIT 6 OFFSET ?";
+            String role = SessionManager.get("role").toString();
+            String sql1;
+            if(role.equals("user")) {
+                sql1 = "SELECT * FROM books WHERE is_borrowed = 0 LIMIT 6 OFFSET ?";
+            }
+            else {
+                sql1 = "SELECT * FROM books LIMIT 6 OFFSET ?";
+            }
+            
             PreparedStatement p1 = conn.prepareStatement(sql1);
             
             
@@ -209,7 +236,7 @@ public class Books extends javax.swing.JFrame {
             int index = 0;
             
             while(rs.next()) {
-                books.add(new Book(rs.getInt("id"), rs.getString("name"), rs.getString("author")));
+                books.add(new Book(rs.getInt("id"), rs.getString("name"), rs.getString("author"), rs.getString("description")));
                 System.out.println(rs.getString("name"));
             }
             
@@ -237,6 +264,7 @@ public class Books extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton add_book;
     private javax.swing.JPanel book_area;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
