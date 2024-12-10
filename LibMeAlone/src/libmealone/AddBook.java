@@ -7,6 +7,7 @@ import database.MyDB;
 import database.SessionManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.concurrent.Callable;
 
 /**
  *
@@ -17,8 +18,16 @@ public class AddBook extends javax.swing.JFrame {
     /**
      * Creates new form AddBook
      */
+    private Callable<Void> update;
+    
     public AddBook() {
         initComponents();
+    }
+    
+    public AddBook(Callable<Void> call) {
+        initComponents();
+        
+        this.update = call;
     }
 
     /**
@@ -120,6 +129,7 @@ public class AddBook extends javax.swing.JFrame {
 
             p1.execute();
             
+            this.update.call();
             conn.close();
        }
        catch(Exception error) {

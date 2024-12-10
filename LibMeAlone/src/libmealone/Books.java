@@ -171,7 +171,11 @@ public class Books extends javax.swing.JFrame {
     }//GEN-LAST:event_minus_offsetMouseClicked
 
     private void add_bookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add_bookMouseClicked
-        new AddBook().setVisible(true);
+        new AddBook(() -> {
+            this.books = getBooks();
+            updateBooks();
+            return null;
+        }).setVisible(true);
     }//GEN-LAST:event_add_bookMouseClicked
 
     /**
